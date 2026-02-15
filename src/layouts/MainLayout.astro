@@ -1,0 +1,43 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/styles.css";
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Buitrago | Muebles de Madera Maciza y a Medida en Salta</title>
+
+    <meta
+      name="description"
+      content="Carpintería Buitrago en Salta. Muebles de madera maciza, diseño minimalista y fabricación a medida."
+    />
+
+    <meta
+      name="keywords"
+      content="carpintería en Salta, muebles a medida en Salta, muebles de madera, mesas de comedor, Buitrago muebles"
+    />
+
+    <!-- Google Fonts (igual que antes) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+
+    <!-- CSS global -->
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
+

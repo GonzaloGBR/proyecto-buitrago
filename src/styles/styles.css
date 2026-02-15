@@ -1,0 +1,381 @@
+/* --- 1. VARIABLES Y CONFIGURACIÓN (Tema Cálido/Minimalista) --- */
+:root {
+    /* Paleta de Colores: Tonos Tierra y Madera */
+    --color-bg: #F9F7F2;        /* Crema muy suave (Fondo principal) */
+    --color-text: #3E3228;      /* Marrón café oscuro (Texto principal) */
+    --color-accent: #8B5A2B;    /* Tono madera/Terracota (Botones/Detalles) */
+    --color-accent-hover: #6D4620; 
+    --color-white: #ffffff;
+    --color-footer: #2C241F;    /* Marrón casi negro */
+    
+    /* Tipografía */
+    --font-serif: 'Cinzel', serif; /* Para títulos y Logo */
+    --font-sans: 'Lato', sans-serif; /* Para cuerpo de texto */
+    
+    /* Espaciado y Layout */
+    --container-width: 1200px;
+    --spacing-section: clamp(3rem, 8vh, 6rem);
+    --radius: 4px; /* Bordes sutiles, no muy redondos para ser elegante */
+}
+
+/* Reset Moderno */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* Utilidades */
+.container {
+    width: min(90%, var(--container-width));
+    margin-inline: auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+/* Títulos */
+h1, h2, h3, .logo {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    text-wrap: balance;
+}
+
+/* --- 2. HEADER & NAV --- */
+header {
+    padding-block: 1.5rem;
+    position: sticky;
+    top: 0;
+    background-color: rgba(249, 247, 242, 0.95); /* Semi-transparente */
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(139, 90, 43, 0.1);
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 140px; /* Ajusta este valor según el tamaño real de tu logo */
+    display: block;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.nav-menu a:hover { color: var(--color-accent); }
+
+/* --- NUEVO: Contenedor derecho del header (Menú + Redes) --- */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 3rem; /* Separación entre el menú de texto y los iconos */
+}
+
+.header-socials {
+    display: flex;
+    gap: 1.2rem; /* Separación entre iconos */
+    align-items: center;
+}
+
+.social-icon {
+    width: 22px; /* Tamaño mediano */
+    height: 22px;
+    fill: var(--color-text);
+    transition: fill 0.3s, transform 0.3s;
+}
+
+.social-icon:hover {
+    fill: var(--color-accent);
+    transform: scale(1.15);
+}
+
+/* Mobile Menu (Simple CSS only approach for brevity) */
+@media (max-width: 768px) {
+    .nav-menu { display: none; } /* En producción se usaría un checkbox hack o JS simple */
+    
+    /* Ajustes específicos para Móvil */
+    header { padding-block: 0.8rem; } /* Header más delgado */
+    .logo { width: 100px; } /* Logo más pequeño */
+    .header-right { gap: 1rem; }
+    
+    .hero h1 { font-size: 2.5rem; } /* Título hero ajustado */
+    .section-title { font-size: 2rem; margin-bottom: 2rem; } /* Títulos de sección más compactos */
+    
+    /* Asegurar que las tarjetas entren bien en pantallas angostas (ej. iPhone SE) */
+    .categories-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+}
+
+/* --- 3. HERO SECTION --- */
+.hero {
+    position: relative;
+    min-height: 85dvh; /* Usar min-height para evitar cortes en móviles si el texto es largo */
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+/* Imagen de fondo minimalista (Comedor) */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    /* IMAGEN LOCAL ACTUALIZADA - RUTA RELATIVA AJUSTADA (../) */
+    background-image: url('../media/fondo.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    filter: brightness(0.6); /* Oscurecer para leer texto */
+    z-index: -1;
+    will-change: transform; /* Optimización para el renderizado */
+}
+
+.hero-content {
+    text-align: center;
+    color: var(--color-white);
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* --- 4. CATEGORÍAS (Tarjetas con fondo) --- */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--color-accent);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.cat-card {
+    position: relative;
+    height: 350px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    group: isolate; /* Para hover effects */
+}
+
+.cat-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+    will-change: transform; /* Optimización de animación */
+    z-index: -1;
+}
+
+.cat-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3); /* Overlay oscuro sutil */
+    transition: background 0.3s;
+}
+
+.cat-card h3 {
+    position: relative;
+    z-index: 2;
+    color: white;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 1rem 2rem;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(2px);
+}
+
+/* Efecto Hover */
+.cat-card:hover img { transform: scale(1.1); }
+.cat-card:hover::after { background: rgba(0,0,0,0.5); }
+
+/* --- 5. PRODUCTOS DESTACADOS --- */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.prod-card {
+    background: white;
+    padding-bottom: 1rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+    will-change: transform;
+}
+
+.prod-card:hover { transform: translateY(-5px); }
+
+.prod-img-container {
+    height: 300px;
+    overflow: hidden;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.prod-img-container img {
+    width: 100%;
+    height: 100%;
+    transition: scale 0.4s;
+    will-change: scale;
+}
+
+.prod-card:hover .prod-img-container img { scale: 1.05; }
+
+.prod-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.prod-name {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.prod-price {
+    font-weight: 700;
+    color: var(--color-accent);
+    font-size: 1.1rem;
+}
+
+/* --- 6. BARRA DE INFORMACIÓN --- */
+.info-bar {
+    background-color: #EBE5CE; /* Beige más oscuro */
+    padding-block: 3rem;
+    margin-top: var(--spacing-section);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.info-item h4 {
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.info-item p { font-size: 0.9rem; opacity: 0.8; }
+.info-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+
+/* --- 7. CONTACTO --- */
+.contact-section {
+    text-align: center;
+    background-color: var(--color-white);
+    padding: 4rem 1rem;
+    border-top: 1px solid #eee;
+}
+
+.whatsapp-btn {
+    display: inline-block;
+    background-color: #25D366;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: bold;
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+/* --- 8. FOOTER --- */
+footer {
+    background-color: var(--color-footer);
+    color: #dcdcdc;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-col h4 {
+    color: var(--color-white);
+    font-family: var(--font-serif);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.footer-col ul li { margin-bottom: 0.8rem; }
+.footer-col a:hover { color: var(--color-accent); padding-left: 5px; }
+
+.legal {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+/* Espaciado general de secciones */
+section { 
+    margin-bottom: var(--spacing-section);
+    /* OPTIMIZACIÓN DE RENDIMIENTO (2026) */
+    /* Salta el renderizado de secciones fuera de pantalla */
+    content-visibility: auto; 
+    contain-intrinsic-size: 1px 500px; /* Evita saltos de scroll */
+}
+
+/* --- 9. PÁGINAS INTERNAS --- */
+.page-header {
+    background-color: var(--color-white);
+    padding: 4rem 0 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
